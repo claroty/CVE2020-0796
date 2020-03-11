@@ -1,6 +1,8 @@
 
 # CVE2020-0796
 
+For more information see in https://blog.claroty.com/advisory-new-wormable-vulnerability-in-microsoft-smbv3
+
 ## SMBv3 Compression Tester
 NSE script to check if a Windows machine has SMBv3 protocol enabled with the compression feature. 
 
