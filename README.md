@@ -4,7 +4,9 @@
 For more information see in https://blog.claroty.com/advisory-new-wormable-vulnerability-in-microsoft-smbv3
 
 ## SMBv3 Compression Tester
-NSE script to check if a Windows machine has SMBv3 protocol enabled with the compression feature. 
+Multiple scripts and detection tools to check if a Windows machine has SMBv3 protocol enabled with the compression feature. 
+* NSE script
+* Python script
 
 ## Notes
 Our NSE script is based on `smb2-capabilities.nse` which we expanded to detect SMBv3 compression as well. Currently it's a standalone NSE script with a patched lua file but we will PR the nmap repository with those changes.
