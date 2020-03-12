@@ -1,8 +1,17 @@
 ###############
 # Rules by Claroty
-# This rules will detect SMB compressed communication by the SMB protocol identifier. 
+###############
+
+###############
+# These rules will detect SMB compressed communication by the SMB protocol identifier. 
 # The use of the offset and depth parameter is designed to prevent false positives and to allow the NetBios Layer
 ###############
 alert tcp any any -> any 445 (msg:"Claroty Signature: SMBv3 Used with compression - Client to server"; content:"|fc 53 4d 42|"; offset: 0; depth: 10; sid:1000001; rev:1; reference:url,blog.claroty.com/advisory-new-wormable-vulnerability-in-microsoft-smbv3;)
 alert tcp any 445 -> any any (msg:"Claroty Signature: SMBv3 Used with compression - Server to client"; content:"|fc 53 4d 42|"; offset: 0; depth: 10; sid:1000002; rev:1; reference:url,blog.claroty.com/advisory-new-wormable-vulnerability-in-microsoft-smbv3;)
+
+#############
+# These rules detect server/client with compression enabled based on the negotiation packet
+#############
+alert tcp any any -> any 445 (msg:"Claroty Signature: SMBv3 Negotiate Protocol Request with Compression Capabilities Context"; content:"|fe 53 4d 42|"; offset: 4; depth: 10; content:"|00 00 00 00|"; distance: 6;  content:"|11 03|"; distance: 86; within: 20; content:"|03 00|"; distance: 2;  content:"|00 00 00 00 00 |"; distance: 1; within: 5; content:"|00 00 00 00 00 |"; distance: 1; within: 5; sid:1000021; rev:1; reference:url,blog.claroty.com/advisory-new-wormable-vulnerability-in-microsoft-smbv3;)
+alert tcp any 445 -> any any (msg:"Claroty Signature: SMBv3 Negotiate Protocol Reponse with Compression Capabilities Context"; content:"|fe 53 4d 42|"; offset: 4; depth: 10; content:"|00 00 00 00 00 00|"; distance: 4;  content:"|11 03|"; distance: 50; within: 8; content:"|03 00 |"; distance: 64; within:400;  content:"|00 00 00 00 00 |"; distance: 1; content:"|00 00 00 00 00 |"; distance: 1; sid:1000022; rev:1; reference:url,blog.claroty.com/advisory-new-wormable-vulnerability-in-microsoft-smbv3;)
 
