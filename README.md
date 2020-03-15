@@ -7,7 +7,10 @@ For more information see in https://blog.claroty.com/advisory-new-wormable-vulne
 Multiple scripts and detection tools to check if a Windows machine has SMBv3 protocol enabled with the compression feature. 
 * NSE script
 * Python script
-* Snort rules alerting on compressed SMB traffic, and compression-enabled hosts
+* Snort rules:
+    * alerting on compressed SMB traffic, and compression-enabled hosts
+    * alerting on a DoS implementation of the vulnerability
+* pcaps - examples of traffic using SMBv3 compression, and implementation of a DoS attack using the vulnerability
 
 ## Notes
 Our NSE script is based on `smb2-capabilities.nse` which we expanded to detect SMBv3 compression as well. Currently it's a standalone NSE script with a patched lua file but we will PR the nmap repository with those changes.

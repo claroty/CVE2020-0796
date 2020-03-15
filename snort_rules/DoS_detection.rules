@@ -1,0 +1,14 @@
+##############################
+# Snort rule to detect CVE2020-0796 Denial of Service implementation
+# Tested on: Snort Version 2.9.11 GRE (Build 125) 
+# Thanks to https://github.com/eerykitty/CVE-2020-0796-PoC for the implementation
+############################## 
+
+
+alert tcp any any -> any 445 (msg:"Claroty Signature: SMBv3 Compressed packet - Overflow detected CVE2020-0796"; \
+content:"|fc 53 4d 42|"; offset: 0; depth: 10; \
+byte_extract:4,0,extracted_offset,little, relative; \
+byte_math:bytes 4, offset 4, oper +, rvalue extracted_offset, result res_add,endian little, relative; \
+content:"|fc 53 4d 42|"; offset: 0; depth: 10; \
+byte_test:4,>,res_add,0,little,relative;\
+ sid:1000023; rev:1; reference:url,blog.claroty.com/advisory-new-wormable-vulnerability-in-microsoft-smbv3;)
