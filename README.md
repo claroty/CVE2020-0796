@@ -8,8 +8,8 @@ Multiple scripts and detection tools to check if a Windows machine has SMBv3 pro
 * NSE script
 * Python script
 * Snort rules:
-** alerting on compressed SMB traffic, and compression-enabled hosts
-** alerting on a DoS implementation of the vulnerability
+    * alerting on compressed SMB traffic, and compression-enabled hosts
+    * alerting on a DoS implementation of the vulnerability
 * pcaps - examples of traffic using SMBv3 compression, and implementation of a DoS attack using the vulnerability
 
 ## Notes
